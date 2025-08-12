@@ -12,7 +12,7 @@ jobs:
     - name: Extract ngrok
       run: Expand-Archive ngrok.zip
     - name: Connect Ngrok
-      run: .\ngrok\ngrok.exe authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
+      run: .\ngrok\ngrok.exe authtoken ${{ 2efQIiY3xYWRfaPQICsZglW88Lq_56b1yMpgaUgsV41pwYjRV }}
     - name: Start RDP
       run: |
         Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
