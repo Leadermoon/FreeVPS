@@ -1,0 +1,21 @@
+name: Windows VPS via Ngrok
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Download ngrok
+      run: Invoke-WebRequest -Uri https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
+    - name: Extract ngrok
+      run: Expand-Archive ngrok.zip
+    - name: Connect Ngrok
+      run: .\ngrok\ngrok.exe authtoken ${{ 2efQIiY3xYWRfaPQICsZglW88Lq_56b1yMpgaUgsV41pwYjRV }}
+    - name: Start RDP
+      run: |
+        Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+        Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server" -Name "fDenyTSConnections" -Value 0
+        Start-Process .\ngrok\ngrok.exe tcp 3389
+        Start-Sleep -Seconds 86400
